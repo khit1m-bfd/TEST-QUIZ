@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz – Comportement Professionnel</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #f5f3ff;
+    min-height: 100vh;
+    color: #1a1a2e;
+  }
+  header {
+    background: linear-gradient(135deg, #2d3a8c, #1a237e);
+    color: white;
+    padding: 28px 20px 20px;
+    text-align: center;
+  }
+  header h1 { font-size: 1.5rem; font-weight: 800; letter-spacing: 1px; }
+  header p { font-size: 0.9rem; opacity: 0.85; margin-top: 6px; }
+
+  .lang-bar {
+    display: flex; justify-content: center; gap: 10px;
+    padding: 14px; background: #e8e6ff;
+    border-bottom: 2px solid #c5c0f5;
+    flex-wrap: wrap;
+  }
+  .lang-btn {
+    padding: 7px 20px; border: 2px solid #2d3a8c; border-radius: 30px;
+    background: white; color: #2d3a8c; font-weight: 700; cursor: pointer;
+    font-size: 0.85rem; transition: all .2s;
+  }
+  .lang-btn.active, .lang-btn:hover {
+    background: #2d3a8c; color: white;
+  }
+
+  .container { max-width: 760px; margin: 30px auto; padding: 0 16px 60px; }
+
+  /* Intro */
+  #intro-section {
+    background: white; border-radius: 18px; padding: 36px 28px;
+    box-shadow: 0 4px 24px rgba(45,58,140,.12); text-align: center;
+  }
+  #intro-section h2 { font-size: 1.4rem; color: #2d3a8c; margin-bottom: 12px; }
+  #intro-section p { color: #555; font-size: 0.97rem; line-height: 1.6; margin-bottom: 24px; }
+  .start-btn {
+    background: linear-gradient(135deg, #2d3a8c, #5c6bc0);
+    color: white; border: none; padding: 14px 40px;
+    border-radius: 30px; font-size: 1.05rem; font-weight: 700;
+    cursor: pointer; box-shadow: 0 4px 14px rgba(45,58,140,.3);
+    transition: transform .15s;
+  }
+  .start-btn:hover { transform: translateY(-2px); }
+
+  /* Progress */
+  .progress-wrap { margin-bottom: 20px; }
+  .progress-info { display: flex; justify-content: space-between; font-size: 0.82rem; color: #666; margin-bottom: 6px; }
+  .progress-bar { height: 8px; background: #ddd; border-radius: 10px; overflow: hidden; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg,#2d3a8c,#5c6bc0); border-radius: 10px; transition: width .4s ease; }
+
+  /* Question card */
+  .q-card {
+    background: white; border-radius: 18px; padding: 30px 26px;
+    box-shadow: 0 4px 24px rgba(45,58,140,.1); margin-bottom: 20px;
+  }
+  .q-category {
+    display: inline-block; background: #e8e6ff; color: #2d3a8c;
+    font-size: 0.75rem; font-weight: 700; padding: 4px 12px;
+    border-radius: 20px; margin-bottom: 14px; letter-spacing: .5px;
+    text-transform: uppercase;
+  }
+  .q-text { font-size: 1.05rem; font-weight: 600; line-height: 1.55; color: #1a1a2e; margin-bottom: 20px; }
+  .options { display: flex; flex-direction: column; gap: 11px; }
+  .opt-btn {
+    padding: 13px 18px; border: 2px solid #ddd; border-radius: 12px;
+    background: #fafafa; text-align: left; cursor: pointer;
+    font-size: 0.93rem; color: #333; transition: all .18s; line-height: 1.4;
+  }
+  .opt-btn:hover { border-color: #5c6bc0; background: #f0eeff; color: #2d3a8c; }
+  .opt-btn.selected { border-color: #2d3a8c; background: #e8e6ff; color: #2d3a8c; font-weight: 600; }
+  .opt-btn.correct { border-color: #27ae60; background: #eafaf1; color: #1e8449; }
+  .opt-btn.wrong { border-color: #e74c3c; background: #fdf2f2; color: #c0392b; }
+  .opt-btn.reveal { border-color: #27ae60; background: #eafaf1; color: #1e8449; }
+  .opt-btn:disabled { cursor: default; }
+
+  .feedback-box {
+    margin-top: 16px; padding: 13px 16px; border-radius: 10px;
+    font-size: 0.9rem; line-height: 1.5; display: none;
+  }
+  .feedback-box.show { display: block; }
+  .feedback-box.good { background: #eafaf1; border-left: 4px solid #27ae60; color: #1e5631; }
+  .feedback-box.bad  { background: #fdf2f2; border-left: 4px solid #e74c3c; color: #922b21; }
+
+  .nav-row { display: flex; justify-content: flex-end; margin-top: 18px; }
+  .next-btn {
+    background: #2d3a8c; color: white; border: none;
+    padding: 12px 30px; border-radius: 30px; font-size: 0.95rem;
+    font-weight: 700; cursor: pointer; display: none; transition: .15s;
+  }
+  .next-btn:hover { background: #1a237e; }
+  .next-btn.show { display: inline-block; }
+
+  /* Results */
+  #result-section { display: none; }
+  .result-card {
+    background: white; border-radius: 18px; padding: 36px 28px;
+    box-shadow: 0 4px 24px rgba(45,58,140,.12); text-align: center;
+  }
+  .score-circle {
+    width: 130px; height: 130px; border-radius: 50%; margin: 0 auto 20px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    font-weight: 900; color: white;
+  }
+  .score-circle .big { font-size: 2.4rem; line-height: 1; }
+  .score-circle .small { font-size: 0.78rem; letter-spacing: 1px; margin-top: 3px; }
+  .level-label { font-size: 1.25rem; font-weight: 800; margin-bottom: 8px; }
+  .level-desc { color: #555; font-size: 0.95rem; line-height: 1.6; max-width: 500px; margin: 0 auto 26px; }
+
+  .breakdown { margin: 22px 0; text-align: left; }
+  .breakdown h3 { font-size: 0.95rem; font-weight: 700; color: #2d3a8c; margin-bottom: 14px; text-transform: uppercase; letter-spacing: .5px; }
+  .cat-row { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+  .cat-name { width: 200px; font-size: 0.83rem; color: #444; flex-shrink: 0; }
+  .cat-bar-wrap { flex: 1; background: #eee; border-radius: 8px; height: 10px; overflow: hidden; }
+  .cat-bar { height: 100%; border-radius: 8px; background: linear-gradient(90deg,#2d3a8c,#5c6bc0); }
+  .cat-pct { font-size: 0.8rem; font-weight: 700; color: #2d3a8c; width: 36px; text-align: right; }
+
+  .retry-btn {
+    background: linear-gradient(135deg,#2d3a8c,#5c6bc0); color: white;
+    border: none; padding: 14px 38px; border-radius: 30px;
+    font-size: 1rem; font-weight: 700; cursor: pointer; margin-top: 10px;
+    box-shadow: 0 4px 14px rgba(45,58,140,.25); transition: transform .15s;
+  }
+  .retry-btn:hover { transform: translateY(-2px); }
+
+  /* RTL support */
+  body.rtl { direction: rtl; }
+  body.rtl .opt-btn { text-align: right; }
+  body.rtl .feedback-box.good { border-left: none; border-right: 4px solid #27ae60; }
+  body.rtl .feedback-box.bad  { border-left: none; border-right: 4px solid #e74c3c; }
+  body.rtl .nav-row { justify-content: flex-start; }
+  body.rtl .breakdown h3 { text-align: right; }
+
+  @media(max-width:500px){
+    .cat-name { width: 130px; font-size: 0.75rem; }
+    header h1 { font-size: 1.1rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1 id="hdr-title">Quiz – Comportement Professionnel & Relations Interpersonnelles</h1>
+  <p id="hdr-sub">Testez vos connaissances</p>
+</header>
+
+<div class="lang-bar">
+  <button class="lang-btn active" onclick="setLang('fr')">🇫🇷 Français</button>
+  <button class="lang-btn" onclick="setLang('ar')">🇲🇦 العربية</button>
+  <button class="lang-btn" onclick="setLang('en')">🇬🇧 English</button>
+</div>
+
+<div class="container">
+
+  <!-- INTRO -->
+  <div id="intro-section">
+    <h2 id="intro-title">Bienvenue dans le Quiz !</h2>
+    <p id="intro-desc">Ce test évalue votre comportement professionnel et vos relations interpersonnelles dans des situations personnelles. Il comprend <strong>15 questions</strong> réparties en plusieurs catégories. À la fin, vous obtiendrez votre score et un retour personnalisé sur vos attitudes.</p>
+    <button class="start-btn" onclick="startQuiz()" id="btn-start">Commencer le test →</button>
+  </div>
+
+  <!-- QUIZ -->
+  <div id="quiz-section" style="display:none">
+    <div class="progress-wrap">
+      <div class="progress-info">
+        <span id="q-counter">Question 1 / 15</span>
+        <span id="q-score-live">Score : 0</span>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" id="prog-fill" style="width:0%"></div></div>
+    </div>
+
+    <div class="q-card" id="q-card">
+      <span class="q-category" id="q-cat"></span>
+      <div class="q-text" id="q-text"></div>
+      <div class="options" id="q-options"></div>
+      <div class="feedback-box" id="q-feedback"></div>
+      <div class="nav-row"><button class="next-btn" id="next-btn" onclick="nextQuestion()"></button></div>
+    </div>
+  </div>
+
+  <!-- RESULTS -->
+  <div id="result-section">
+    <div class="result-card">
+      <div class="score-circle" id="score-circle">
+        <span class="big" id="res-pct"></span>
+        <span class="small" id="res-label-sm">/ 15</span>
+      </div>
+      <div class="level-label" id="res-level"></div>
+      <div class="level-desc" id="res-desc"></div>
+      <div class="breakdown">
+        <h3 id="res-breakdown-title">Résultats par catégorie</h3>
+        <div id="cat-breakdown"></div>
+      </div>
+      <button class="retry-btn" onclick="resetQuiz()" id="btn-retry">🔄 Recommencer</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ─── DATA ───────────────────────────────────────────────────────────────────
+const LANGS = {
+  fr: {
+    dir: 'ltr',
+    hdrTitle: 'Quiz – Comportement Professionnel & Relations Interpersonnelles',
+    hdrSub: 'Testez vos connaissances',
+    introTitle: 'Bienvenue dans le Quiz !',
+    introDesc: 'Ce test évalue votre maîtrise du comportement professionnel et des relations interpersonnelles au travail. Il comprend <strong>15 questions</strong> réparties en plusieurs catégories. À la fin, vous obtiendrez votre score et un retour personnalisé.',
+    btnStart: 'Commencer le test →',
+    qCounter: (i,t) => `Question ${i} / ${t}`,
+    scoreLive: s => `Score : ${s}`,
+    nextBtn: 'Question suivante →',
+    finishBtn: 'Voir mes résultats →',
+    breakdownTitle: 'Résultats par catégorie',
+    btnRetry: '🔄 Recommencer',
+    levels: [
+      { min: 0,  max: 39,  label: 'Débutant',        color: '#e74c3c', desc: 'Des bases solides restent à construire. Revoyez les fondamentaux du comportement professionnel et des relations au travail.' },
+      { min: 40, max: 59,  label: 'En développement', color: '#e67e22', desc: 'Vous avez quelques bonnes bases mais des lacunes subsistent. Concentrez-vous sur les contextes professionnels et la communication.' },
+      { min: 60, max: 79,  label: 'Intermédiaire',    color: '#f1c40f', desc: 'Bon niveau général ! Quelques points peuvent encore être améliorés, notamment sur les limites et le réseau professionnel.' },
+      { min: 80, max: 94,  label: 'Avancé',           color: '#2ecc71', desc: 'Très bonne maîtrise du sujet ! Vous appliquez bien les principes du comportement professionnel et des relations interpersonnelles.' },
+      { min: 95, max: 100, label: 'Expert',            color: '#2d3a8c', desc: 'Excellent ! Vous maîtrisez parfaitement ce sujet. Vous êtes un modèle de professionnalisme.' },
+    ],
+  },
+  ar: {
+    dir: 'rtl',
+    hdrTitle: 'اختبار – السلوك المهني والعلاقات الشخصية',
+    hdrSub: 'اختبر معلوماتك',
+    introTitle: 'مرحباً بك في الاختبار!',
+    introDesc: 'يقيّم هذا الاختبار سلوكك المهني وعلاقاتك الشخصية في مواقف شخصية. يتكون من <strong>15 سؤالاً</strong> موزعة على عدة محاور. في النهاية ستحصل على نتيجتك وتقييم مخصص لمواقفك.',
+    btnStart: 'ابدأ الاختبار ←',
+    qCounter: (i,t) => `السؤال ${i} من ${t}`,
+    scoreLive: s => `النتيجة : ${s}`,
+    nextBtn: '← السؤال التالي',
+    finishBtn: '← عرض نتائجي',
+    breakdownTitle: 'النتائج حسب المحور',
+    btnRetry: '🔄 إعادة الاختبار',
+    levels: [
+      { min: 0,  max: 39,  label: 'مبتدئ',          color: '#e74c3c', desc: 'لا تزال هناك أسس يجب بناؤها. راجع مبادئ السلوك المهني والعلاقات في بيئة العمل.' },
+      { min: 40, max: 59,  label: 'في طور التطوير', color: '#e67e22', desc: 'لديك بعض الأسس الجيدة لكن توجد ثغرات. ركّز على السياقات المهنية والتواصل.' },
+      { min: 60, max: 79,  label: 'متوسط',          color: '#f1c40f', desc: 'مستوى عام جيد! يمكن تحسين بعض النقاط، خاصة الحدود المهنية وبناء الشبكة.' },
+      { min: 80, max: 94,  label: 'متقدم',          color: '#2ecc71', desc: 'إتقان ممتاز للموضوع! أنت تطبّق مبادئ السلوك المهني والعلاقات الشخصية بشكل جيد.' },
+      { min: 95, max: 100, label: 'خبير',           color: '#2d3a8c', desc: 'ممتاز! أنت تتقن هذا الموضوع بشكل مثالي. أنت نموذج للاحترافية.' },
+    ],
+  },
+  en: {
+    dir: 'ltr',
+    hdrTitle: 'Quiz – Professional Behavior & Interpersonal Relations',
+    hdrSub: 'Test your knowledge',
+    introTitle: 'Welcome to the Quiz!',
+    introDesc: 'This test assesses your professional behavior and interpersonal relationships in personal situations. It includes <strong>15 questions</strong> across several categories. At the end, you will receive your score and personalized feedback on your attitudes.',
+    btnStart: 'Start the test →',
+    qCounter: (i,t) => `Question ${i} / ${t}`,
+    scoreLive: s => `Score: ${s}`,
+    nextBtn: 'Next question →',
+    finishBtn: 'See my results →',
+    breakdownTitle: 'Results by category',
+    btnRetry: '🔄 Try again',
+    levels: [
+      { min: 0,  max: 39,  label: 'Beginner',      color: '#e74c3c', desc: 'Strong foundations still need to be built. Review the fundamentals of professional behavior and workplace relationships.' },
+      { min: 40, max: 59,  label: 'Developing',    color: '#e67e22', desc: 'You have some good basics but gaps remain. Focus on professional contexts and communication.' },
+      { min: 60, max: 79,  label: 'Intermediate',  color: '#f1c40f', desc: 'Good overall level! A few points can still be improved, especially on boundaries and professional networking.' },
+      { min: 80, max: 94,  label: 'Advanced',      color: '#2ecc71', desc: 'Very good command of the subject! You apply the principles of professional behavior and interpersonal relations well.' },
+      { min: 95, max: 100, label: 'Expert',        color: '#2d3a8c', desc: 'Excellent! You have a perfect command of this subject. You are a model of professionalism.' },
+    ],
+  },
+};
+
+const QUESTIONS = [
+  {
+    cat: { fr:'Comportement professionnel', ar:'السلوك المهني', en:'Professional behavior' },
+    q: {
+      fr: 'Lorsque vous recevez une critique constructive, vous :',
+      ar: 'عندما تتلقى نقداً بناءً، أنت:',
+      en: 'When you receive constructive criticism, you:',
+    },
+    opts: {
+      fr: ["La prenez personnellement","L'écoutez mais ne changez rien","L'analyse et vous améliorez","Justifiez votre comportement"],
+      ar: ["تأخذها شخصياً","تستمع لكن لا تغير شيئاً","تحللها وتتحسن","تبرر سلوكك"],
+      en: ["Take it personally","Listen but don't change anything","Analyze it and improve","Justify your behavior"],
+    },
+    correct: 2,
+    fb: {
+      fr: '✅ Correct ! Analyser la critique et s\'améliorer montre une attitude professionnelle et ouverte.',
+      ar: '✅ صحيح! تحليل النقد والتحسن يظهر موقفاً مهنياً ومفتوحاً.',
+      en: '✅ Correct! Analyzing criticism and improving shows a professional and open attitude.',
+    },
+  },
+  {
+    cat: { fr:'Contextes professionnels', ar:'السياقات المهنية', en:'Professional contexts' },
+    q: {
+      fr: 'En open space, vous évitez de :',
+      ar: 'في المكتب المفتوح، أنت تتجنب:',
+      en: 'In an open-space office, you avoid:',
+    },
+    opts: {
+      fr: ["Utiliser un casque pour les appels","Respecter les zones de concentration","Parler en haut-parleur","Prévenir avant d'interrompre quelqu'un"],
+      ar: ["استخدام سماعة الرأس للمكالمات","احترام مناطق التركيز","استخدام مكبر الصوت","الإخطار قبل مقاطعة أحد"],
+      en: ["Using headphones for calls","Respecting concentration zones","Using speakerphone","Warning before interrupting someone"],
+    },
+    correct: 2,
+    fb: {
+      fr: '✅ Correct ! Parler en haut-parleur dans un espace ouvert perturbe tout le monde. Utilisez toujours un casque ou trouvez un espace privé.',
+      ar: '✅ صحيح! استخدام مكبر الصوت في المكتب المفتوح يزعج الجميع. استخدم دائماً سماعة الرأس أو ابحث عن مكان خاص.',
+      en: '✅ Correct! Using a speakerphone in an open space disturbs everyone. Always use headphones or find a private space.',
+    },
+  },
+  {
+    cat: { fr:'Relations interpersonnelles', ar:'العلاقات الشخصية', en:'Interpersonal relations' },
+    q: {
+      fr: 'Dans vos relations interpersonnelles au travail, vous privilégiez :',
+      ar: 'في علاقاتك الشخصية في العمل، أنت تفضل:',
+      en: 'In your interpersonal relationships at work, you prioritize:',
+    },
+    opts: {
+      fr: ["La compétition et la performance individuelle","La communication, la coopération et le respect","L'ancienneté et la hiérarchie stricte","L'amitié profonde entre collègues"],
+      ar: ["المنافسة والأداء الفردي","التواصل والتعاون والاحترام","الأقدمية والتسلسل الهرمي الصارم","الصداقة العميقة بين الزملاء"],
+      en: ["Competition and individual performance","Communication, cooperation and respect","Seniority and strict hierarchy","Deep friendship between colleagues"],
+    },
+    correct: 1,
+    fb: {
+      fr: '✅ Correct ! Les relations interpersonnelles reposent sur la communication, la coopération et le respect mutuel pour assurer un bon climat professionnel.',
+      ar: '✅ صحيح! تقوم العلاقات الشخصية على التواصل والتعاون والاحترام المتبادل لضمان مناخ مهني جيد.',
+      en: '✅ Correct! Interpersonal relationships are built on communication, cooperation and mutual respect to ensure a good professional climate.',
+    },
+  },
+  {
+    cat: { fr:'CNV', ar:'التواصل اللاعنيف', en:'NVC' },
+    q: {
+      fr: 'Lorsque vous exprimez un besoin à un collègue, vous :',
+      ar: 'عندما تعبر عن حاجة لزميل، أنت:',
+      en: 'When you express a need to a colleague, you:',
+    },
+    opts: {
+      fr: ["Vous jugez la situation","Vous exigez une réponse immédiate","Vous partagez votre sentiment et votre besoin","Vous restez vague"],
+      ar: ["تحكم على الموقف","تطلب رداً فورياً","تشارك شعورك وحاجتك","تبقى غامضاً"],
+      en: ["You judge the situation","You demand an immediate response","You share your feeling and your need","You stay vague"],
+    },
+    correct: 2,
+    fb: {
+      fr: '✅ Correct ! Exprimer un sentiment et un besoin clairement montre une communication professionnelle et respectueuse.',
+      ar: '✅ صحيح! التعبير عن شعورك وحاجتك بوضوح يظهر تواصلاً مهنياً ومحترماً.',
+      en: '✅ Correct! Expressing your feeling and your need clearly shows professional and respectful communication.',
+    },
+  },
+  {
+    cat: { fr:'Relations avec le chef', ar:'العلاقة مع المسؤول', en:'Relations with manager' },
+    q: {
+      fr: 'Lorsque vous présentez un problème à votre supérieur, vous :',
+      ar: 'عندما تعرض مشكلة على مسؤولك، أنت:',
+      en: 'When you present a problem to your manager, you:',
+    },
+    opts: {
+      fr: ["Vous plaignez auprès des collègues d'abord","Réagissez émotionnellement en public","Partagez le problème avec des solutions proposées","Contournez la chaîne hiérarchique"],
+      ar: ["تشكو للزملاء أولاً","تتصرف بانفعال في الأماكن العامة","تعرض المشكلة مع حلول مقترحة","تتجاوز التسلسل الهرمي"],
+      en: ["Complain to colleagues first","React emotionally in public","Share the problem with proposed solutions","Bypass the chain of command"],
+    },
+    correct: 2,
+    fb: {
+      fr: '✅ Correct ! Présenter un problème avec des solutions proposées montre votre esprit d\'initiative et facilite la prise de décision du manager.',
+      ar: '✅ صحيح! عرض المشكلة مع حلول مقترحة يُظهر روح المبادرة ويُسهّل اتخاذ القرار من قِبل المسؤول.',
+      en: '✅ Correct! Presenting a problem with proposed solutions shows initiative and makes it easier for the manager to decide.',
+    },
+  },
+  {
+    cat: { fr:'Relations avec les collègues', ar:'العلاقة مع الزملاء', en:'Relations with colleagues' },
+    q: {
+      fr: 'Avec vos collègues, vous évitez de :',
+      ar: 'مع زملائك، أنت تتجنب:',
+      en: 'With your colleagues, you avoid:',
+    },
+    opts: {
+      fr: ["Célébrer les succès collectifs","Prendre le crédit du travail d'autrui","Respecter les différences de personnalité","Communiquer directement et bienveillamment"],
+      ar: ["الاحتفال بالنجاحات الجماعية","الاستئثار بالفضل في عمل الآخرين","احترام اختلافات الشخصية","التواصل المباشر والودّي"],
+      en: ["Celebrating collective successes","Taking credit for others' work","Respecting personality differences","Direct and benevolent communication"],
+    },
+    correct: 1,
+    fb: {
+      fr: '✅ Correct ! S\'approprier le travail d\'un collègue est une faute grave qui détruit la confiance et nuit au travail d\'équipe.',
+      ar: '✅ صحيح! الاستئثار بعمل الزميل خطأ جسيم يدمر الثقة ويضر بالعمل الجماعي.',
+      en: '✅ Correct! Taking credit for a colleague\'s work is a serious fault that destroys trust and harms teamwork.',
+    },
+  },
+  {
+    cat: { fr:'Travail en équipe', ar:'العمل الجماعي', en:'Teamwork' },
+    q: {
+      fr: 'En équipe, quelle pratique favorise la bonne coordination ?',
+      ar: 'في العمل الجماعي، أي من هذه الممارسات يعزز التنسيق الجيد؟',
+      en: 'In a team, which practice promotes good coordination?',
+    },
+    opts: {
+      fr: ["Communication en silos","Décisions unilatérales sans consultation","Monopoliser la parole en réunion","Clarifier les rôles et responsabilités (RACI)"],
+      ar: ["التواصل المنعزل","قرارات أحادية الجانب دون استشارة","الاستئثار بالكلام في الاجتماعات","توضيح الأدوار والمسؤوليات"],
+      en: ["Siloed communication","Unilateral decisions without consultation","Monopolizing speech in meetings","Clarifying roles and responsibilities (RACI)"],
+    },
+    correct: 3,
+    fb: {
+      fr: '✅ Correct ! Clarifier les rôles (RACI) évite les doublons, les oublis et les conflits dans une équipe.',
+      ar: '✅ صحيح! توضيح الأدوار (RACI) يتجنب التكرار والإغفال والنزاعات داخل الفريق.',
+      en: '✅ Correct! Clarifying roles (RACI) avoids duplicates, oversights and conflicts in a team.',
+    },
+  },
+  {
+    cat: { fr:'Bâtir des relations', ar:'بناء العلاقات', en:'Building relationships' },
+    q: {
+      fr: 'Dans une première rencontre professionnelle, vous faites attention à :',
+      ar: 'في لقاء مهني أول، أنت تولي اهتماماً لـ:',
+      en: 'In a first professional meeting, you pay attention to:',
+    },
+    opts: {
+      fr: ["Votre apparence et présentation","Le contenu technique uniquement","Les ragots sur l'entreprise","Rien de spécial"],
+      ar: ["مظهرك وعرضك","المحتوى التقني فقط","الشائعات عن الشركة","لا شيء خاص"],
+      en: ["Your appearance and presentation","Technical content only","Gossip about the company","Nothing special"],
+    },
+    correct: 0,
+    fb: {
+      fr: '✅ Correct ! La première impression est importante et irréversible à 80% selon Cialdini, donc bien se présenter dès le début est essentiel.',
+      ar: '✅ صحيح! الانطباع الأول مهم ولا رجعة فيه بنسبة 80% وفقاً لسيالديني، لذا تقديم نفسك جيداً منذ البداية أمر أساسي.',
+      en: '✅ Correct! The first impression is important and irreversible at 80% according to Cialdini, so presenting yourself well from the start is essential.',
+    },
+  },
+  {
+    cat: { fr:'Bâtir des relations', ar:'بناء العلاقات', en:'Building relationships' },
+    q: {
+      fr: 'Vous préférez entretenir des liens :',
+      ar: 'أنت تفضل صيانة روابط:',
+      en: 'You prefer to maintain links:',
+    },
+    opts: {
+      fr: ["Forts avec peu de personnes","Faibles avec beaucoup de personnes","Seulement hiérarchiques","Aucun"],
+      ar: ["قوية مع عدد قليل من الأشخاص","ضعيفة مع عدد كبير من الأشخاص","هرمية فقط","لا شيء"],
+      en: ["Strong with few people","Weak with many people","Only hierarchical","None"],
+    },
+    correct: 1,
+    fb: {
+      fr: '✅ Correct ! Les liens faibles (connaissances lointaines) sont plus utiles professionnellement car ils donnent accès à des réseaux et informations inconnus de vos cercles proches.',
+      ar: '✅ صحيح! الروابط الضعيفة (المعارف البعيدون) أكثر فائدة مهنياً لأنها تُتيح الوصول إلى شبكات ومعلومات غير معروفة في دوائرك المقربة.',
+      en: '✅ Correct! Weak ties (distant acquaintances) are more useful professionally because they give access to networks and information unknown in your close circles.',
+    },
+  },
+  {
+    cat: { fr:'Limites professionnelles', ar:'الحدود المهنية', en:'Professional limits' },
+    q: {
+      fr: 'Face à une demande excessive d\'un collègue, vous :',
+      ar: 'أمام طلب مفرط من زميل، أنت:',
+      en: 'Faced with an excessive request from a colleague, you:',
+    },
+    opts: {
+      fr: ["Acceptez toujours pour aider","Refusez poliment en expliquant vos limites","Ignorez la demande","Déléguez à un supérieur"],
+      ar: ["تقبل دائماً للمساعدة","ترفض بأدب موضحاً حدودك","تتجاهل الطلب","توكل إلى مسؤول"],
+      en: ["Always accept to help","Politely refuse by explaining your limits","Ignore the request","Delegate to a superior"],
+    },
+    correct: 1,
+    fb: {
+      fr: "✅ Correct ! Refuser poliment en expliquant vos limites préserve le respect mutuel et l'équilibre professionnel.",
+      ar: "✅ صحيح! الرفض بأدب موضحاً حدودك يحافظ على الاحترام المتبادل والتوازن المهني.",
+      en: "✅ Correct! Politely refusing by explaining your limits preserves mutual respect and professional balance.",
+    },
+  },
+  {
+    cat: { fr:'Limites professionnelles', ar:'الحدود المهنية', en:'Professional limits' },
+    q: {
+      fr: 'Comment refuser poliment une surcharge de travail ?',
+      ar: 'كيف ترفض بأدب الحمل الزائد من العمل؟',
+      en: 'How to politely decline work overload?',
+    },
+    opts: {
+      fr: ["Ignorer la demande","Accepter pour ne pas décevoir","Dire \"Non à la demande, pas à la personne\"","Se plaindre à toute l'équipe"],
+      ar: ["تجاهل الطلب","القبول لتجنب خيبة الأمل","قول \"لا للطلب، لا للشخص\"","الشكوى لكل الفريق"],
+      en: ["Ignore the request","Accept to avoid disappointing","Say \"No to the request, not the person\"","Complain to the whole team"],
+    },
+    correct: 2,
+    fb: {
+      fr: '✅ Correct ! La formule "Non à la demande, pas à la personne" permet de refuser professionnellement sans détériorer la relation.',
+      ar: '✅ صحيح! صيغة "لا للطلب، لا للشخص" تُتيح الرفض المهني دون الإضرار بالعلاقة.',
+      en: '✅ Correct! The formula "No to the request, not the person" allows a professional refusal without damaging the relationship.',
+    },
+  },
+  {
+    cat: { fr:'Questions difficiles', ar:'أسئلة صعبة', en:'Difficult questions' },
+    q: {
+      fr: 'Un collègue vous demande votre salaire. Quelle est la bonne réaction ?',
+      ar: 'يسألك أحد الزملاء عن راتبك. ما هو رد الفعل المناسب؟',
+      en: 'A colleague asks about your salary. What is the right reaction?',
+    },
+    opts: {
+      fr: ["Mentir pour éviter la gêne","Le dire pour instaurer la confiance","Répondre \"Je préfère garder cette information confidentielle\"","Changer de sujet brusquement"],
+      ar: ["الكذب لتجنب الإحراج","إخباره لبناء الثقة","قول \"أفضل الاحتفاظ بهذه المعلومة سرية\"","تغيير الموضوع فجأة"],
+      en: ["Lie to avoid embarrassment","Tell them to build trust","Reply \"I prefer to keep this information confidential\"","Abruptly change the subject"],
+    },
+    correct: 2,
+    fb: {
+      fr: '✅ Correct ! Répondre poliment que l\'on préfère garder cette information confidentielle est la réponse professionnelle appropriée, sans offenser.',
+      ar: '✅ صحيح! الإجابة بأدب بأنك تفضل الاحتفاظ بهذه المعلومة سرية هو الرد المهني المناسب، دون إهانة أحد.',
+      en: '✅ Correct! Politely replying that you prefer to keep this information confidential is the appropriate professional answer, without offending.',
+    },
+  },
+  {
+    cat: { fr:'Réseau professionnel', ar:'الشبكة المهنية', en:'Professional network' },
+    q: {
+      fr: 'Vous estimez pouvoir maintenir activement :',
+      ar: 'أنت تقدر قدرتك على الحفاظ بنشاط على:',
+      en: 'You estimate you can actively maintain:',
+    },
+    opts: {
+      fr: ["2 à 3 relations proches","5 relations proches","15 à 20 relations","50 relations"],
+      ar: ["2 إلى 3 علاقات وثيقة","5 علاقات وثيقة","15 إلى 20 علاقة","50 علاقة"],
+      en: ["2 to 3 close relationships","5 close relationships","15 to 20 relationships","50 relationships"],
+    },
+    correct: 1,
+    fb: {
+      fr: '✅ Correct ! Selon Dunbar, on peut maintenir 5 relations très proches (core) et environ 15 relations proches actives — pas plus.',
+      ar: '✅ صحيح! وفقاً لدنبار، يمكن الحفاظ على 5 علاقات وثيقة جداً (القلب) وحوالي 15 علاقة وثيقة نشطة — لا أكثر.',
+      en: '✅ Correct! According to Dunbar, we can maintain 5 very close (core) relationships and about 15 active close relationships — no more.',
+    },
+  },
+  {
+    cat: { fr:'Réseau professionnel', ar:'الشبكة المهنية', en:'Professional network' },
+    q: {
+      fr: 'Pour développer un réseau professionnel efficace, que faut-il faire en priorité ?',
+      ar: 'لتطوير شبكة مهنية فعّالة، ما الذي يجب فعله بشكل أولي؟',
+      en: 'To develop an effective professional network, what should you prioritize?',
+    },
+    opts: {
+      fr: ["Contacter les gens seulement quand on a besoin d'eux","Donner avant de recevoir (principe de réciprocité)","Avoir le plus de contacts possible sans les entretenir","Limiter ses relations à ses collègues directs"],
+      ar: ["التواصل مع الناس فقط عند الحاجة إليهم","العطاء قبل الأخذ (مبدأ المعاملة بالمثل)","امتلاك أكبر عدد من جهات الاتصال دون صيانتها","قصر علاقاتك على زملائك المباشرين"],
+      en: ["Contact people only when you need them","Give before receiving (reciprocity principle)","Have as many contacts as possible without maintaining them","Limit your relationships to direct colleagues"],
+    },
+    correct: 1,
+    fb: {
+      fr: '✅ Correct ! Le principe de réciprocité de Cialdini recommande de donner en premier (aide, info, connexion). Le retour arrive naturellement.',
+      ar: '✅ صحيح! يوصي مبدأ المعاملة بالمثل لسيالديني بالعطاء أولاً (مساعدة، معلومات، تواصل). العائد يأتي بشكل طبيعي.',
+      en: '✅ Correct! Cialdini\'s reciprocity principle recommends giving first (help, info, connections). The return comes naturally.',
+    },
+  },
+];
+
+// ─── STATE ──────────────────────────────────────────────────────────────────
+let lang = 'fr';
+let current = 0;
+let score = 0;
+let answered = false;
+let catScores = {};
+
+// ─── LANG ───────────────────────────────────────────────────────────────────
+function setLang(l) {
+  lang = l;
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+  document.body.classList.toggle('rtl', l === 'ar');
+  applyLangStrings();
+  if (document.getElementById('quiz-section').style.display !== 'none') {
+    renderQuestion();
+  }
+  if (document.getElementById('result-section').style.display !== 'none') {
+    showResults();
+  }
+}
+
+function applyLangStrings() {
+  const L = LANGS[lang];
+  document.getElementById('hdr-title').textContent = L.hdrTitle;
+  document.getElementById('hdr-sub').textContent = L.hdrSub;
+  document.getElementById('intro-title').textContent = L.introTitle;
+  document.getElementById('intro-desc').innerHTML = L.introDesc;
+  document.getElementById('btn-start').textContent = L.btnStart;
+  document.getElementById('btn-retry').textContent = L.btnRetry;
+  if (document.getElementById('result-section').style.display === 'none' &&
+      document.getElementById('quiz-section').style.display === 'none') return;
+  document.getElementById('q-counter').textContent = L.qCounter(current+1, QUESTIONS.length);
+  document.getElementById('q-score-live').textContent = L.scoreLive(score);
+}
+
+// ─── QUIZ ───────────────────────────────────────────────────────────────────
+function startQuiz() {
+  current = 0; score = 0; catScores = {}; answered = false;
+  document.getElementById('intro-section').style.display = 'none';
+  document.getElementById('result-section').style.display = 'none';
+  document.getElementById('quiz-section').style.display = 'block';
+  renderQuestion();
+}
+
+function renderQuestion() {
+  const L = LANGS[lang];
+  const Q = QUESTIONS[current];
+  answered = false;
+
+  document.getElementById('q-counter').textContent = L.qCounter(current+1, QUESTIONS.length);
+  document.getElementById('q-score-live').textContent = L.scoreLive(score);
+  document.getElementById('prog-fill').style.width = ((current/QUESTIONS.length)*100)+'%';
+  document.getElementById('q-cat').textContent = Q.cat[lang];
+  document.getElementById('q-text').textContent = Q.q[lang];
+
+  const opts = document.getElementById('q-options');
+  opts.innerHTML = '';
+  Q.opts[lang].forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'opt-btn';
+    btn.textContent = opt;
+    btn.onclick = () => selectAnswer(i);
+    opts.appendChild(btn);
+  });
+
+  const fb = document.getElementById('q-feedback');
+  fb.className = 'feedback-box';
+  fb.textContent = '';
+
+  const nb = document.getElementById('next-btn');
+  nb.className = 'next-btn';
+  nb.textContent = current < QUESTIONS.length-1 ? L.nextBtn : L.finishBtn;
+}
+
+function selectAnswer(chosen) {
+  if (answered) return;
+  answered = true;
+  const L = LANGS[lang];
+  const Q = QUESTIONS[current];
+  const btns = document.querySelectorAll('.opt-btn');
+  const catKey = Q.cat.fr;
+
+  if (!catScores[catKey]) catScores[catKey] = { right: 0, total: 0, label: Q.cat };
+  catScores[catKey].total++;
+
+  btns.forEach(b => b.disabled = true);
+
+  const fb = document.getElementById('q-feedback');
+  if (chosen === Q.correct) {
+    score++;
+    catScores[catKey].right++;
+    btns[chosen].classList.add('correct');
+    fb.className = 'feedback-box good show';
+    fb.textContent = Q.fb[lang];
+  } else {
+    btns[chosen].classList.add('wrong');
+    btns[Q.correct].classList.add('reveal');
+    fb.className = 'feedback-box bad show';
+    fb.textContent = Q.fb[lang];
+  }
+  document.getElementById('q-score-live').textContent = L.scoreLive(score);
+  document.getElementById('next-btn').classList.add('show');
+}
+
+function nextQuestion() {
+  current++;
+  if (current >= QUESTIONS.length) { showResults(); return; }
+  renderQuestion();
+}
+
+// ─── RESULTS ────────────────────────────────────────────────────────────────
+function showResults() {
+  const L = LANGS[lang];
+  document.getElementById('quiz-section').style.display = 'none';
+  document.getElementById('result-section').style.display = 'block';
+
+  const pct = Math.round((score / QUESTIONS.length) * 100);
+  const level = L.levels.find(lv => pct >= lv.min && pct <= lv.max) || L.levels[L.levels.length-1];
+
+  const circle = document.getElementById('score-circle');
+  circle.style.background = level.color;
+  document.getElementById('res-pct').textContent = score + '/' + QUESTIONS.length;
+  document.getElementById('res-label-sm').textContent = pct + '%';
+  document.getElementById('res-level').textContent = level.label;
+  document.getElementById('res-level').style.color = level.color;
+  document.getElementById('res-desc').textContent = level.desc;
+  document.getElementById('res-breakdown-title').textContent = L.breakdownTitle;
+  document.getElementById('btn-retry').textContent = L.btnRetry;
+
+  // Breakdown
+  const breakdown = document.getElementById('cat-breakdown');
+  breakdown.innerHTML = '';
+  Object.entries(catScores).forEach(([key, val]) => {
+    const p = val.total ? Math.round((val.right/val.total)*100) : 0;
+    const row = document.createElement('div');
+    row.className = 'cat-row';
+    row.innerHTML = `
+      <div class="cat-name">${val.label[lang]}</div>
+      <div class="cat-bar-wrap"><div class="cat-bar" style="width:${p}%"></div></div>
+      <div class="cat-pct">${p}%</div>`;
+    breakdown.appendChild(row);
+  });
+
+  // Update progress bar to 100%
+  document.getElementById('prog-fill').style.width = '100%';
+}
+
+function resetQuiz() {
+  document.getElementById('result-section').style.display = 'none';
+  document.getElementById('intro-section').style.display = 'block';
+  current = 0; score = 0; catScores = {}; answered = false;
+}
+
+// Init
+applyLangStrings();
+</script>
+</body>
+</html>
