@@ -659,8 +659,8 @@ function selectAnswer(chosen) {
     document.getElementById('next-btn').classList.add('show');
   } else {
     btns[chosen].classList.add('wrong');
-    fb.className = 'feedback-box bad show';
-    fb.textContent = L.wrongAnswer;
+    fb.className = 'feedback-box';
+    fb.textContent = '';
     setTimeout(() => {
       btns[Q.correct].classList.add('reveal');
       document.getElementById('next-btn').classList.add('show');
