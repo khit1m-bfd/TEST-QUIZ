@@ -277,272 +277,285 @@ const LANGS = {
 };
 
 const QUESTIONS = [
-  {
-    cat: { fr:'Comportement professionnel', ar:'السلوك المهني', en:'Professional behavior' },
-    q: {
-      fr: 'Lorsque vous recevez une critique constructive, vous :',
-      ar: 'عندما تتلقى نقداً بناءً، أنت:',
-      en: 'When you receive constructive criticism, you:',
-    },
-    opts: {
-      fr: ["La prenez personnellement","L'écoutez mais ne changez rien","L'analyse et vous améliorez","Justifiez votre comportement"],
-      ar: ["تأخذها شخصياً","تستمع لكن لا تغير شيئاً","تحللها وتتحسن","تبرر سلوكك"],
-      en: ["Take it personally","Listen but don't change anything","Analyze it and improve","Justify your behavior"],
-    },
-    correct: 2,
-    fb: {
-      fr: '✅ Correct ! Analyser la critique et s\'améliorer montre une attitude professionnelle et ouverte.',
-      ar: '✅ صحيح! تحليل النقد والتحسن يظهر موقفاً مهنياً ومفتوحاً.',
-      en: '✅ Correct! Analyzing criticism and improving shows a professional and open attitude.',
-    },
-  },
-  {
-    cat: { fr:'Contextes professionnels', ar:'السياقات المهنية', en:'Professional contexts' },
-    q: {
-      fr: 'En open space, vous évitez de :',
-      ar: 'في المكتب المفتوح، أنت تتجنب:',
-      en: 'In an open-space office, you avoid:',
-    },
-    opts: {
-      fr: ["Utiliser un casque pour les appels","Respecter les zones de concentration","Parler en haut-parleur","Prévenir avant d'interrompre quelqu'un"],
-      ar: ["استخدام سماعة الرأس للمكالمات","احترام مناطق التركيز","استخدام مكبر الصوت","الإخطار قبل مقاطعة أحد"],
-      en: ["Using headphones for calls","Respecting concentration zones","Using speakerphone","Warning before interrupting someone"],
-    },
-    correct: 2,
-    fb: {
-      fr: '✅ Correct ! Parler en haut-parleur dans un espace ouvert perturbe tout le monde. Utilisez toujours un casque ou trouvez un espace privé.',
-      ar: '✅ صحيح! استخدام مكبر الصوت في المكتب المفتوح يزعج الجميع. استخدم دائماً سماعة الرأس أو ابحث عن مكان خاص.',
-      en: '✅ Correct! Using a speakerphone in an open space disturbs everyone. Always use headphones or find a private space.',
-    },
-  },
-  {
-    cat: { fr:'Relations interpersonnelles', ar:'العلاقات الشخصية', en:'Interpersonal relations' },
-    q: {
-      fr: 'Dans vos relations interpersonnelles au travail, vous privilégiez :',
-      ar: 'في علاقاتك الشخصية في العمل، أنت تفضل:',
-      en: 'In your interpersonal relationships at work, you prioritize:',
-    },
-    opts: {
-      fr: ["La compétition et la performance individuelle","La communication, la coopération et le respect","L'ancienneté et la hiérarchie stricte","L'amitié profonde entre collègues"],
-      ar: ["المنافسة والأداء الفردي","التواصل والتعاون والاحترام","الأقدمية والتسلسل الهرمي الصارم","الصداقة العميقة بين الزملاء"],
-      en: ["Competition and individual performance","Communication, cooperation and respect","Seniority and strict hierarchy","Deep friendship between colleagues"],
-    },
-    correct: 1,
-    fb: {
-      fr: '✅ Correct ! Les relations interpersonnelles reposent sur la communication, la coopération et le respect mutuel pour assurer un bon climat professionnel.',
-      ar: '✅ صحيح! تقوم العلاقات الشخصية على التواصل والتعاون والاحترام المتبادل لضمان مناخ مهني جيد.',
-      en: '✅ Correct! Interpersonal relationships are built on communication, cooperation and mutual respect to ensure a good professional climate.',
-    },
-  },
-  {
-    cat: { fr:'CNV', ar:'التواصل اللاعنيف', en:'NVC' },
-    q: {
-      fr: 'Lorsque vous exprimez un besoin à un collègue, vous :',
-      ar: 'عندما تعبر عن حاجة لزميل، أنت:',
-      en: 'When you express a need to a colleague, you:',
-    },
-    opts: {
-      fr: ["Vous jugez la situation","Vous exigez une réponse immédiate","Vous partagez votre sentiment et votre besoin","Vous restez vague"],
-      ar: ["تحكم على الموقف","تطلب رداً فورياً","تشارك شعورك وحاجتك","تبقى غامضاً"],
-      en: ["You judge the situation","You demand an immediate response","You share your feeling and your need","You stay vague"],
-    },
-    correct: 2,
-    fb: {
-      fr: '✅ Correct ! Exprimer un sentiment et un besoin clairement montre une communication professionnelle et respectueuse.',
-      ar: '✅ صحيح! التعبير عن شعورك وحاجتك بوضوح يظهر تواصلاً مهنياً ومحترماً.',
-      en: '✅ Correct! Expressing your feeling and your need clearly shows professional and respectful communication.',
-    },
-  },
-  {
-    cat: { fr:'Relations avec le chef', ar:'العلاقة مع المسؤول', en:'Relations with manager' },
-    q: {
-      fr: 'Lorsque vous présentez un problème à votre supérieur, vous :',
-      ar: 'عندما تعرض مشكلة على مسؤولك، أنت:',
-      en: 'When you present a problem to your manager, you:',
-    },
-    opts: {
-      fr: ["Vous plaignez auprès des collègues d'abord","Réagissez émotionnellement en public","Partagez le problème avec des solutions proposées","Contournez la chaîne hiérarchique"],
-      ar: ["تشكو للزملاء أولاً","تتصرف بانفعال في الأماكن العامة","تعرض المشكلة مع حلول مقترحة","تتجاوز التسلسل الهرمي"],
-      en: ["Complain to colleagues first","React emotionally in public","Share the problem with proposed solutions","Bypass the chain of command"],
-    },
-    correct: 2,
-    fb: {
-      fr: '✅ Correct ! Présenter un problème avec des solutions proposées montre votre esprit d\'initiative et facilite la prise de décision du manager.',
-      ar: '✅ صحيح! عرض المشكلة مع حلول مقترحة يُظهر روح المبادرة ويُسهّل اتخاذ القرار من قِبل المسؤول.',
-      en: '✅ Correct! Presenting a problem with proposed solutions shows initiative and makes it easier for the manager to decide.',
-    },
-  },
-  {
-    cat: { fr:'Relations avec les collègues', ar:'العلاقة مع الزملاء', en:'Relations with colleagues' },
-    q: {
-      fr: 'Avec vos collègues, vous évitez de :',
-      ar: 'مع زملائك، أنت تتجنب:',
-      en: 'With your colleagues, you avoid:',
-    },
-    opts: {
-      fr: ["Célébrer les succès collectifs","Prendre le crédit du travail d'autrui","Respecter les différences de personnalité","Communiquer directement et bienveillamment"],
-      ar: ["الاحتفال بالنجاحات الجماعية","الاستئثار بالفضل في عمل الآخرين","احترام اختلافات الشخصية","التواصل المباشر والودّي"],
-      en: ["Celebrating collective successes","Taking credit for others' work","Respecting personality differences","Direct and benevolent communication"],
-    },
-    correct: 1,
-    fb: {
-      fr: '✅ Correct ! S\'approprier le travail d\'un collègue est une faute grave qui détruit la confiance et nuit au travail d\'équipe.',
-      ar: '✅ صحيح! الاستئثار بعمل الزميل خطأ جسيم يدمر الثقة ويضر بالعمل الجماعي.',
-      en: '✅ Correct! Taking credit for a colleague\'s work is a serious fault that destroys trust and harms teamwork.',
-    },
-  },
-  {
-    cat: { fr:'Travail en équipe', ar:'العمل الجماعي', en:'Teamwork' },
-    q: {
-      fr: 'En équipe, quelle pratique favorise la bonne coordination ?',
-      ar: 'في العمل الجماعي، أي من هذه الممارسات يعزز التنسيق الجيد؟',
-      en: 'In a team, which practice promotes good coordination?',
-    },
-    opts: {
-      fr: ["Communication en silos","Décisions unilatérales sans consultation","Monopoliser la parole en réunion","Clarifier les rôles et responsabilités (RACI)"],
-      ar: ["التواصل المنعزل","قرارات أحادية الجانب دون استشارة","الاستئثار بالكلام في الاجتماعات","توضيح الأدوار والمسؤوليات"],
-      en: ["Siloed communication","Unilateral decisions without consultation","Monopolizing speech in meetings","Clarifying roles and responsibilities (RACI)"],
-    },
-    correct: 3,
-    fb: {
-      fr: '✅ Correct ! Clarifier les rôles (RACI) évite les doublons, les oublis et les conflits dans une équipe.',
-      ar: '✅ صحيح! توضيح الأدوار (RACI) يتجنب التكرار والإغفال والنزاعات داخل الفريق.',
-      en: '✅ Correct! Clarifying roles (RACI) avoids duplicates, oversights and conflicts in a team.',
-    },
-  },
-  {
-    cat: { fr:'Bâtir des relations', ar:'بناء العلاقات', en:'Building relationships' },
-    q: {
-      fr: 'Dans une première rencontre professionnelle, vous faites attention à :',
-      ar: 'في لقاء مهني أول، أنت تولي اهتماماً لـ:',
-      en: 'In a first professional meeting, you pay attention to:',
-    },
-    opts: {
-      fr: ["Votre apparence et présentation","Le contenu technique uniquement","Les ragots sur l'entreprise","Rien de spécial"],
-      ar: ["مظهرك وعرضك","المحتوى التقني فقط","الشائعات عن الشركة","لا شيء خاص"],
-      en: ["Your appearance and presentation","Technical content only","Gossip about the company","Nothing special"],
-    },
-    correct: 0,
-    fb: {
-      fr: '✅ Correct ! La première impression est importante et irréversible à 80% selon Cialdini, donc bien se présenter dès le début est essentiel.',
-      ar: '✅ صحيح! الانطباع الأول مهم ولا رجعة فيه بنسبة 80% وفقاً لسيالديني، لذا تقديم نفسك جيداً منذ البداية أمر أساسي.',
-      en: '✅ Correct! The first impression is important and irreversible at 80% according to Cialdini, so presenting yourself well from the start is essential.',
-    },
-  },
-  {
-    cat: { fr:'Bâtir des relations', ar:'بناء العلاقات', en:'Building relationships' },
-    q: {
-      fr: 'Vous préférez entretenir des liens :',
-      ar: 'أنت تفضل صيانة روابط:',
-      en: 'You prefer to maintain links:',
-    },
-    opts: {
-      fr: ["Forts avec peu de personnes","Faibles avec beaucoup de personnes","Seulement hiérarchiques","Aucun"],
-      ar: ["قوية مع عدد قليل من الأشخاص","ضعيفة مع عدد كبير من الأشخاص","هرمية فقط","لا شيء"],
-      en: ["Strong with few people","Weak with many people","Only hierarchical","None"],
-    },
-    correct: 1,
-    fb: {
-      fr: '✅ Correct ! Les liens faibles (connaissances lointaines) sont plus utiles professionnellement car ils donnent accès à des réseaux et informations inconnus de vos cercles proches.',
-      ar: '✅ صحيح! الروابط الضعيفة (المعارف البعيدون) أكثر فائدة مهنياً لأنها تُتيح الوصول إلى شبكات ومعلومات غير معروفة في دوائرك المقربة.',
-      en: '✅ Correct! Weak ties (distant acquaintances) are more useful professionally because they give access to networks and information unknown in your close circles.',
-    },
-  },
-  {
-    cat: { fr:'Limites professionnelles', ar:'الحدود المهنية', en:'Professional limits' },
-    q: {
-      fr: 'Face à une demande excessive d\'un collègue, vous :',
-      ar: 'أمام طلب مفرط من زميل، أنت:',
-      en: 'Faced with an excessive request from a colleague, you:',
-    },
-    opts: {
-      fr: ["Acceptez toujours pour aider","Refusez poliment en expliquant vos limites","Ignorez la demande","Déléguez à un supérieur"],
-      ar: ["تقبل دائماً للمساعدة","ترفض بأدب موضحاً حدودك","تتجاهل الطلب","توكل إلى مسؤول"],
-      en: ["Always accept to help","Politely refuse by explaining your limits","Ignore the request","Delegate to a superior"],
-    },
-    correct: 1,
-    fb: {
-      fr: "✅ Correct ! Refuser poliment en expliquant vos limites préserve le respect mutuel et l'équilibre professionnel.",
-      ar: "✅ صحيح! الرفض بأدب موضحاً حدودك يحافظ على الاحترام المتبادل والتوازن المهني.",
-      en: "✅ Correct! Politely refusing by explaining your limits preserves mutual respect and professional balance.",
-    },
-  },
-  {
-    cat: { fr:'Limites professionnelles', ar:'الحدود المهنية', en:'Professional limits' },
-    q: {
-      fr: 'Comment refuser poliment une surcharge de travail ?',
-      ar: 'كيف ترفض بأدب الحمل الزائد من العمل؟',
-      en: 'How to politely decline work overload?',
-    },
-    opts: {
-      fr: ["Ignorer la demande","Accepter pour ne pas décevoir","Dire \"Non à la demande, pas à la personne\"","Se plaindre à toute l'équipe"],
-      ar: ["تجاهل الطلب","القبول لتجنب خيبة الأمل","قول \"لا للطلب، لا للشخص\"","الشكوى لكل الفريق"],
-      en: ["Ignore the request","Accept to avoid disappointing","Say \"No to the request, not the person\"","Complain to the whole team"],
-    },
-    correct: 2,
-    fb: {
-      fr: '✅ Correct ! La formule "Non à la demande, pas à la personne" permet de refuser professionnellement sans détériorer la relation.',
-      ar: '✅ صحيح! صيغة "لا للطلب، لا للشخص" تُتيح الرفض المهني دون الإضرار بالعلاقة.',
-      en: '✅ Correct! The formula "No to the request, not the person" allows a professional refusal without damaging the relationship.',
-    },
-  },
-  {
-    cat: { fr:'Questions difficiles', ar:'أسئلة صعبة', en:'Difficult questions' },
-    q: {
-      fr: 'Un collègue vous demande votre salaire. Quelle est la bonne réaction ?',
-      ar: 'يسألك أحد الزملاء عن راتبك. ما هو رد الفعل المناسب؟',
-      en: 'A colleague asks about your salary. What is the right reaction?',
-    },
-    opts: {
-      fr: ["Mentir pour éviter la gêne","Le dire pour instaurer la confiance","Répondre \"Je préfère garder cette information confidentielle\"","Changer de sujet brusquement"],
-      ar: ["الكذب لتجنب الإحراج","إخباره لبناء الثقة","قول \"أفضل الاحتفاظ بهذه المعلومة سرية\"","تغيير الموضوع فجأة"],
-      en: ["Lie to avoid embarrassment","Tell them to build trust","Reply \"I prefer to keep this information confidential\"","Abruptly change the subject"],
-    },
-    correct: 2,
-    fb: {
-      fr: '✅ Correct ! Répondre poliment que l\'on préfère garder cette information confidentielle est la réponse professionnelle appropriée, sans offenser.',
-      ar: '✅ صحيح! الإجابة بأدب بأنك تفضل الاحتفاظ بهذه المعلومة سرية هو الرد المهني المناسب، دون إهانة أحد.',
-      en: '✅ Correct! Politely replying that you prefer to keep this information confidential is the appropriate professional answer, without offending.',
-    },
-  },
-  {
-    cat: { fr:'Réseau professionnel', ar:'الشبكة المهنية', en:'Professional network' },
-    q: {
-      fr: 'Vous estimez pouvoir maintenir activement :',
-      ar: 'أنت تقدر قدرتك على الحفاظ بنشاط على:',
-      en: 'You estimate you can actively maintain:',
-    },
-    opts: {
-      fr: ["2 à 3 relations proches","5 relations proches","15 à 20 relations","50 relations"],
-      ar: ["2 إلى 3 علاقات وثيقة","5 علاقات وثيقة","15 إلى 20 علاقة","50 علاقة"],
-      en: ["2 to 3 close relationships","5 close relationships","15 to 20 relationships","50 relationships"],
-    },
-    correct: 1,
-    fb: {
-      fr: '✅ Correct ! Selon Dunbar, on peut maintenir 5 relations très proches (core) et environ 15 relations proches actives — pas plus.',
-      ar: '✅ صحيح! وفقاً لدنبار، يمكن الحفاظ على 5 علاقات وثيقة جداً (القلب) وحوالي 15 علاقة وثيقة نشطة — لا أكثر.',
-      en: '✅ Correct! According to Dunbar, we can maintain 5 very close (core) relationships and about 15 active close relationships — no more.',
-    },
-  },
-  {
-    cat: { fr:'Réseau professionnel', ar:'الشبكة المهنية', en:'Professional network' },
-    q: {
-      fr: 'Pour développer un réseau professionnel efficace, que faut-il faire en priorité ?',
-      ar: 'لتطوير شبكة مهنية فعّالة، ما الذي يجب فعله بشكل أولي؟',
-      en: 'To develop an effective professional network, what should you prioritize?',
-    },
-    opts: {
-      fr: ["Contacter les gens seulement quand on a besoin d'eux","Donner avant de recevoir (principe de réciprocité)","Avoir le plus de contacts possible sans les entretenir","Limiter ses relations à ses collègues directs"],
-      ar: ["التواصل مع الناس فقط عند الحاجة إليهم","العطاء قبل الأخذ (مبدأ المعاملة بالمثل)","امتلاك أكبر عدد من جهات الاتصال دون صيانتها","قصر علاقاتك على زملائك المباشرين"],
-      en: ["Contact people only when you need them","Give before receiving (reciprocity principle)","Have as many contacts as possible without maintaining them","Limit your relationships to direct colleagues"],
-    },
-    correct: 1,
-    fb: {
-      fr: '✅ Correct ! Le principe de réciprocité de Cialdini recommande de donner en premier (aide, info, connexion). Le retour arrive naturellement.',
-      ar: '✅ صحيح! يوصي مبدأ المعاملة بالمثل لسيالديني بالعطاء أولاً (مساعدة، معلومات، تواصل). العائد يأتي بشكل طبيعي.',
-      en: '✅ Correct! Cialdini\'s reciprocity principle recommends giving first (help, info, connections). The return comes naturally.',
-    },
-  },
+{
+cat:{fr:'Comportement professionnel',ar:'السلوك المهني',en:'Professional behavior'},
+q:{
+fr:'Lorsque vous recevez une critique constructive, vous :',
+ar:'عندما تتلقى نقداً بنّاءً ماذا تفعل؟',
+en:'When you receive constructive criticism, you:'
+},
+opts:{
+fr:["La prenez personnellement","L'écoutez mais ne changez rien","L'analyse et vous améliorez","Justifiez votre comportement"],
+ar:["تأخذه بشكل شخصي","تستمع لكن لا تغير شيئاً","تحلله وتحاول أن تتحسن","تبرر سلوكك"],
+en:["Take it personally","Listen but change nothing","Analyze it and improve","Justify your behavior"]
+},
+correct:2,
+fb:{
+fr:"✅ Correct ! Une attitude professionnelle consiste à analyser la critique pour s'améliorer.",
+ar:"✅ صحيح! الموقف المهني هو تحليل النقد من أجل التحسن.",
+en:"✅ Correct! A professional attitude means analyzing criticism to improve."
+}
+},
+
+{
+cat:{fr:'Contextes de travail',ar:'سياقات العمل',en:'Work contexts'},
+q:{
+fr:'Dans un open space, que faut-il éviter ?',
+ar:'في المكتب المفتوح ماذا يجب أن تتجنب؟',
+en:'In an open space office, what should you avoid?'
+},
+opts:{
+fr:["Utiliser un casque pour les appels","Respecter les zones de concentration","Utiliser le haut-parleur pour les appels","Prévenir avant d'interrompre quelqu'un"],
+ar:["استعمال سماعات الرأس للمكالمات","احترام مناطق التركيز","استعمال مكبر الصوت في المكالمات","إخبار الشخص قبل مقاطعته"],
+en:["Use headphones for calls","Respect focus areas","Use speakerphone","Warn before interrupting"]
+},
+correct:2,
+fb:{
+fr:"✅ Correct ! Le haut-parleur dérange tout le monde dans un open space.",
+ar:"✅ صحيح! استعمال مكبر الصوت يزعج الجميع في المكتب المفتوح.",
+en:"✅ Correct! Speakerphone disturbs everyone in an open office."
+}
+},
+
+{
+cat:{fr:'Relations interpersonnelles',ar:'العلاقات بين الأشخاص',en:'Interpersonal relations'},
+q:{
+fr:'Dans vos relations professionnelles vous privilégiez :',
+ar:'في علاقاتك مع الزملاء في العمل ماذا تفضل؟',
+en:'In your professional relationships you prioritize:'
+},
+opts:{
+fr:["La compétition individuelle","La communication, coopération et respect","L'ancienneté et l'autorité","L'amitié profonde seulement"],
+ar:["المنافسة والأداء الفردي","التواصل والتعاون والاحترام","الأقدمية والسلطة","الصداقة العميقة فقط"],
+en:["Individual competition","Communication cooperation respect","Seniority authority","Deep friendship only"]
+},
+correct:1,
+fb:{
+fr:"✅ Correct ! Les bonnes relations professionnelles reposent sur communication et respect.",
+ar:"✅ صحيح! العلاقات المهنية الجيدة تقوم على التواصل والاحترام.",
+en:"✅ Correct! Professional relationships rely on communication and respect."
+}
+},
+
+{
+cat:{fr:'Communication CNV',ar:'التواصل اللاعنفي',en:'Non-violent communication'},
+q:{
+fr:'Lorsque vous exprimez un besoin à un collègue vous :',
+ar:'عندما تعبر عن حاجة لزميلك ماذا تفعل؟',
+en:'When expressing a need to a colleague you:'
+},
+opts:{
+fr:["Jugez la situation","Exigez une réponse immédiate","Exprimez votre sentiment et votre besoin","Restez vague"],
+ar:["تحكم على الموقف","تطلب جواباً فورياً","تعبر عن شعورك وحاجتك بوضوح","تبقى غامضاً"],
+en:["Judge situation","Demand immediate answer","Share feeling and need","Stay vague"]
+},
+correct:2,
+fb:{
+fr:"✅ Correct ! Exprimer clairement son besoin est la base de la CNV.",
+ar:"✅ صحيح! التعبير الواضح عن الشعور والحاجة هو أساس التواصل اللاعنفي.",
+en:"✅ Correct! Clearly expressing feelings and needs is key in NVC."
+}
+},
+
+{
+cat:{fr:'Relations avec le manager',ar:'العلاقة مع المدير',en:'Manager relationship'},
+q:{
+fr:'Si vous avez un problème avec votre manager vous :',
+ar:'إذا كان لديك مشكل في العمل مع المدير ماذا تفعل؟',
+en:'If you have a problem with your manager you:'
+},
+opts:{
+fr:["Vous plaignez aux collègues","Réagissez avec colère","Expliquez le problème et proposez des solutions","Contournez le manager"],
+ar:["تشتكي للزملاء أولاً","تتصرف بعصبية","تشرح المشكلة وتقترح حلولاً","تتجاوز المدير"],
+en:["Complain to colleagues","React angrily","Explain problem and propose solutions","Bypass manager"]
+},
+correct:2,
+fb:{
+fr:"✅ Correct ! Apporter des solutions montre votre professionnalisme.",
+ar:"✅ صحيح! اقتراح حلول يظهر احترافية.",
+en:"✅ Correct! Proposing solutions shows professionalism."
+}
+},
+
+{
+cat:{fr:'Relations collègues',ar:'العلاقة مع الزملاء',en:'Colleague relations'},
+q:{
+fr:'Avec vos collègues vous évitez :',
+ar:'مع الزملاء يجب أن تتجنب ماذا؟',
+en:'With colleagues you should avoid:'
+},
+opts:{
+fr:["Célébrer succès collectif","Prendre crédit du travail d'autrui","Respecter différences","Bonne communication"],
+ar:["الاحتفال بالنجاح الجماعي","نسب عمل الآخرين لنفسك","احترام الاختلافات","التواصل الجيد"],
+en:["Celebrate team success","Take credit for others work","Respect differences","Good communication"]
+},
+correct:1,
+fb:{
+fr:"✅ Correct ! S'approprier le travail d'un collègue détruit la confiance.",
+ar:"✅ صحيح! أخذ عمل الآخرين يضر الثقة داخل الفريق.",
+en:"✅ Correct! Taking others' work damages trust."
+}
+},
+
+{
+cat:{fr:'Travail en équipe',ar:'العمل الجماعي',en:'Teamwork'},
+q:{
+fr:'Qu’est-ce qui aide la coordination dans une équipe ?',
+ar:'ما الذي يساعد على التنسيق الجيد داخل الفريق؟',
+en:'What helps good coordination in a team?'
+},
+opts:{
+fr:["Communication isolée","Décisions individuelles","Monopoliser la parole","Clarifier rôles et responsabilités"],
+ar:["التواصل المنعزل","قرارات فردية","احتكار الكلام","توضيح الأدوار والمسؤوليات"],
+en:["Isolated communication","Individual decisions","Monopolize speaking","Clarify roles"]
+},
+correct:3,
+fb:{
+fr:"✅ Correct ! Des rôles clairs facilitent le travail d'équipe.",
+ar:"✅ صحيح! توضيح الأدوار يساعد على تنظيم العمل.",
+en:"✅ Correct! Clear roles improve teamwork."
+}
+},
+
+{
+cat:{fr:'Construire relations',ar:'بناء العلاقات المهنية',en:'Building relationships'},
+q:{
+fr:'Lors d’une première rencontre professionnelle vous faites attention à :',
+ar:'في أول لقاء مهني ماذا يجب أن تنتبه له؟',
+en:'In a first professional meeting you focus on:'
+},
+opts:{
+fr:["Apparence et présentation","Contenu technique uniquement","Rumeurs","Rien"],
+ar:["المظهر وطريقة التقديم","المحتوى التقني فقط","الشائعات","لا شيء"],
+en:["Appearance presentation","Technical content only","Rumors","Nothing"]
+},
+correct:0,
+fb:{
+fr:"✅ Correct ! La première impression est importante.",
+ar:"✅ صحيح! الانطباع الأول مهم جداً.",
+en:"✅ Correct! First impressions matter."
+}
+},
+
+{
+cat:{fr:'Réseau professionnel',ar:'الشبكات المهنية',en:'Professional network'},
+q:{
+fr:'Quel type de relations est le plus utile ?',
+ar:'أي نوع من العلاقات المهنية أفضل؟',
+en:'Which professional relations are most useful?'
+},
+opts:{
+fr:["Relations fortes peu nombreuses","Relations faibles nombreuses","Relations avec manager","Aucune"],
+ar:["علاقات قوية قليلة","علاقات ضعيفة كثيرة","علاقات مع المدير فقط","لا شيء"],
+en:["Strong few ties","Many weak ties","Manager only","None"]
+},
+correct:1,
+fb:{
+fr:"✅ Correct ! Les liens faibles donnent accès à plus d'opportunités.",
+ar:"✅ صحيح! العلاقات الواسعة تعطي فرصاً أكثر.",
+en:"✅ Correct! Weak ties provide more opportunities."
+}
+},
+
+{
+cat:{fr:'Limites professionnelles',ar:'الحدود المهنية',en:'Professional boundaries'},
+q:{
+fr:'Si un collègue vous demande trop de travail vous :',
+ar:'إذا طلب منك زميل عملاً كثيراً ماذا تفعل؟',
+en:'If a colleague asks too much work you:'
+},
+opts:{
+fr:["Accepter toujours","Refuser poliment en expliquant limites","Ignorer","Envoyer au manager"],
+ar:["تقبل دائماً","ترفض بأدب وتشرح حدودك","تتجاهل الطلب","تحيله للمدير"],
+en:["Always accept","Politely refuse","Ignore","Send to manager"]
+},
+correct:1,
+fb:{
+fr:"✅ Correct ! Il faut poser des limites professionnelles.",
+ar:"✅ صحيح! من المهم وضع حدود مهنية.",
+en:"✅ Correct! Professional limits are important."
+}
+},
+
+{
+cat:{fr:'Limites professionnelles',ar:'الحدود المهنية',en:'Professional limits'},
+q:{
+fr:'Comment refuser une surcharge de travail ?',
+ar:'كيف ترفض العمل الزائد بطريقة محترمة؟',
+en:'How do you refuse work overload politely?'
+},
+opts:{
+fr:["Ignorer","Toujours accepter","Dire non à la demande pas à la personne","Se plaindre"],
+ar:["تجاهل الطلب","القبول دائماً","قل لا للطلب وليس للشخص","الشكوى للجميع"],
+en:["Ignore","Always accept","Say no to request not person","Complain"]
+},
+correct:2,
+fb:{
+fr:"✅ Correct ! Refuser la demande sans attaquer la personne.",
+ar:"✅ صحيح! ترفض الطلب دون مهاجمة الشخص.",
+en:"✅ Correct! Refuse request without attacking person."
+}
+},
+
+{
+cat:{fr:'Questions difficiles',ar:'سؤال حساس',en:'Sensitive questions'},
+q:{
+fr:'Si un collègue vous demande votre salaire :',
+ar:'إذا سألك زميلك عن راتبك ماذا تفعل؟',
+en:'If a colleague asks your salary you:'
+},
+opts:{
+fr:["Mentir","Le dire","Dire que vous préférez garder cette information privée","Changer sujet"],
+ar:["تكذب","تخبره","تقول أفضل الاحتفاظ بهذه المعلومة سرية","تغير الموضوع"],
+en:["Lie","Tell them","Say prefer keep private","Change topic"]
+},
+correct:2,
+fb:{
+fr:"✅ Correct ! La confidentialité est professionnelle.",
+ar:"✅ صحيح! الحفاظ على السرية هو التصرف المهني.",
+en:"✅ Correct! Confidentiality is professional."
+}
+},
+
+{
+cat:{fr:'Réseau professionnel',ar:'الشبكة المهنية',en:'Professional network'},
+q:{
+fr:'Combien de relations proches peut-on maintenir activement ?',
+ar:'كم علاقة قريبة يمكن للشخص الحفاظ عليها؟',
+en:'How many close relations can someone maintain?'
+},
+opts:{
+fr:["2-3","5","15-20","50"],
+ar:["2 إلى 3","5","15 إلى 20","50"],
+en:["2-3","5","15-20","50"]
+},
+correct:1,
+fb:{
+fr:"✅ Correct ! En moyenne une personne maintient environ 5 relations proches.",
+ar:"✅ صحيح! غالباً يمكن الحفاظ على حوالي 5 علاقات قريبة.",
+en:"✅ Correct! Usually around 5 close relations."
+}
+},
+
+{
+cat:{fr:'Réseau professionnel',ar:'تطوير الشبكة المهنية',en:'Professional networking'},
+q:{
+fr:'Pour développer un bon réseau professionnel il faut :',
+ar:'ما أهم شيء لبناء شبكة مهنية جيدة؟',
+en:'To build a good professional network you should:'
+},
+opts:{
+fr:["Contacter seulement quand besoin","Donner avant de recevoir","Accumuler contacts","Limiter aux collègues"],
+ar:["الاتصال بالناس عند الحاجة فقط","العطاء قبل الأخذ","جمع أكبر عدد من العلاقات","العلاقات مع الزملاء فقط"],
+en:["Contact only when needed","Give before receiving","Collect contacts","Only colleagues"]
+},
+correct:1,
+fb:{
+fr:"✅ Correct ! Le principe de réciprocité : donner avant de recevoir.",
+ar:"✅ صحيح! مبدأ المعاملة بالمثل: العطاء قبل الأخذ.",
+en:"✅ Correct! Reciprocity principle: give before receiving."
+}
+}
 ];
 
 // ─── STATE ──────────────────────────────────────────────────────────────────
