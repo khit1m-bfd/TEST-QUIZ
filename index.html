@@ -653,16 +653,17 @@ function selectAnswer(chosen) {
     btns[chosen].classList.add('correct');
     fb.className = 'feedback-box good show';
     fb.textContent = Q.fb[lang];
+    document.getElementById('next-btn').classList.add('show');
   } else {
     btns[chosen].classList.add('wrong');
     fb.className = 'feedback-box bad show';
     fb.textContent = Q.fb[lang];
     setTimeout(() => {
       btns[Q.correct].classList.add('reveal');
+      document.getElementById('next-btn').classList.add('show');
     }, 1000);
   }
   document.getElementById('q-score-live').textContent = L.scoreLive(score);
-  document.getElementById('next-btn').classList.add('show');
 }
 
 function nextQuestion() {
