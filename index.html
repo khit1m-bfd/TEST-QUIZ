@@ -655,9 +655,11 @@ function selectAnswer(chosen) {
     fb.textContent = Q.fb[lang];
   } else {
     btns[chosen].classList.add('wrong');
-    btns[Q.correct].classList.add('reveal');
     fb.className = 'feedback-box bad show';
     fb.textContent = Q.fb[lang];
+    setTimeout(() => {
+      btns[Q.correct].classList.add('reveal');
+    }, 1000);
   }
   document.getElementById('q-score-live').textContent = L.scoreLive(score);
   document.getElementById('next-btn').classList.add('show');
