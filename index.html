@@ -224,6 +224,7 @@ const LANGS = {
     finishBtn: 'Voir mes résultats →',
     breakdownTitle: 'Résultats par catégorie',
     btnRetry: '🔄 Recommencer',
+    wrongAnswer: '❌ Mauvaise réponse. La bonne option est mise en évidence.',
     levels: [
       { min: 0,  max: 39,  label: 'Débutant',        color: '#e74c3c', desc: 'Des bases solides restent à construire. Revoyez les fondamentaux du comportement professionnel et des relations au travail.' },
       { min: 40, max: 59,  label: 'En développement', color: '#e67e22', desc: 'Vous avez quelques bonnes bases mais des lacunes subsistent. Concentrez-vous sur les contextes professionnels et la communication.' },
@@ -245,6 +246,7 @@ const LANGS = {
     finishBtn: '← عرض نتائجي',
     breakdownTitle: 'النتائج حسب المحور',
     btnRetry: '🔄 إعادة الاختبار',
+    wrongAnswer: '❌ إجابة خاطئة. الخيار الصحيح سيتم تمييزه.',
     levels: [
       { min: 0,  max: 39,  label: 'مبتدئ',          color: '#e74c3c', desc: 'لا تزال هناك أسس يجب بناؤها. راجع مبادئ السلوك المهني والعلاقات في بيئة العمل.' },
       { min: 40, max: 59,  label: 'في طور التطوير', color: '#e67e22', desc: 'لديك بعض الأسس الجيدة لكن توجد ثغرات. ركّز على السياقات المهنية والتواصل.' },
@@ -266,6 +268,7 @@ const LANGS = {
     finishBtn: 'See my results →',
     breakdownTitle: 'Results by category',
     btnRetry: '🔄 Try again',
+    wrongAnswer: '❌ Wrong answer. The correct option is highlighted.',
     levels: [
       { min: 0,  max: 39,  label: 'Beginner',      color: '#e74c3c', desc: 'Strong foundations still need to be built. Review the fundamentals of professional behavior and workplace relationships.' },
       { min: 40, max: 59,  label: 'Developing',    color: '#e67e22', desc: 'You have some good basics but gaps remain. Focus on professional contexts and communication.' },
@@ -657,7 +660,7 @@ function selectAnswer(chosen) {
   } else {
     btns[chosen].classList.add('wrong');
     fb.className = 'feedback-box bad show';
-    fb.textContent = Q.fb[lang];
+    fb.textContent = L.wrongAnswer;
     setTimeout(() => {
       btns[Q.correct].classList.add('reveal');
       document.getElementById('next-btn').classList.add('show');
